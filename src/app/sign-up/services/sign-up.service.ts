@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SignUpData } from '../interfaces/sign-up-data';
 
 @Injectable({
@@ -9,6 +9,9 @@ export class SignUpService {
 
   constructor() { }
 
+  isEmailTaken(email: string): Observable<boolean> {
+    return of(true);
+  }
   signup(data: SignUpData) {
     return of({ success: true })
   }

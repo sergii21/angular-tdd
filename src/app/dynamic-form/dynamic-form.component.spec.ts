@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicFormComponent } from './dynamic-form.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormComponent } from './dynamic-form.component';
 
-fdescribe('DynamicFormComponent', () => {
+describe('DynamicFormComponent', () => {
   let component: DynamicFormComponent;
   let fixture: ComponentFixture<DynamicFormComponent>;
 

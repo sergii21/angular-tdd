@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { map, switchMap, timer } from 'rxjs';
 import { SignUpService } from './services/sign-up.service';
 
 @Component({
@@ -13,7 +14,9 @@ import { SignUpService } from './services/sign-up.service';
 export class SignUpComponent {
 
   form = this.fb.nonNullable.group({
-    username: ['', Validators.required],
+    email: ['', Validators.required,
+      (control: AbstractControl) => this.validateEmail(control.value)
+    ],
     password: ['', Validators.required],
   });
   submitProgress: 'idle' | 'success' | 'error' = 'idle';
@@ -21,8 +24,11 @@ export class SignUpComponent {
   constructor(
     private signUpService: SignUpService,
     private fb: FormBuilder
-  ) { 
-  } 
+  ) {
+    this.form.valueChanges.subscribe(v =>
+      console.log(this.form)
+      )
+  }
 
   onSubmit() {
     if (this.form.invalid) {
@@ -34,7 +40,16 @@ export class SignUpComponent {
       },
       error: () => {
         this.submitProgress = 'error';
-      }, 
+      },
     });
   }
+
+  private validateEmail(username: string): ReturnType<AsyncValidatorFn> {
+    return timer(1000).pipe(
+      switchMap(() => this.signUpService.isEmailTaken(username)),
+      map((emailTaken) => (emailTaken ? { taken: true } : null)),
+    );
+  }
+
 }
+

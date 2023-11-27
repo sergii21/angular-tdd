@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { dispatchFakeEvent, findEl, setFieldValue } from '../utilities/spec-helpers/element.spec-helper';
-import { password, signupData, username } from '../utilities/spec-helpers/signup-data.spec-helper';
+import { email, password, signupData } from '../utilities/spec-helpers/signup-data.spec-helper';
 import { SignUpService } from './services/sign-up.service';
 import { SignUpComponent } from './sign-up.component';
 
@@ -35,12 +35,12 @@ import { SignUpComponent } from './sign-up.component';
 //   },
 // };
 
-const requiredFields = [
-  'username',
-  'password',
-];
+// const requiredFields: Pick<SignUpData, 'email'|'password'> = [
+//   'email',
+//   'password',
+// ];
 
-describe('SignUpComponent', () => {
+fdescribe('SignUpComponent', () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
   let signupService: jasmine.SpyObj<SignUpService>;
@@ -51,7 +51,7 @@ describe('SignUpComponent', () => {
     signupService = jasmine.createSpyObj<SignUpService>('SignUpService', {
       // Successful responses per default
       // isUsernameTaken: of(false),
-      // isEmailTaken: of(false),
+      isEmailTaken: of(false),
       // getPasswordStrength: of(strongPassword),
       signup: of({ success: true }),
       // Overwrite with given return values
@@ -72,7 +72,7 @@ describe('SignUpComponent', () => {
   };
 
   const fillForm = () => {
-    setFieldValue(fixture, 'username', username);
+    setFieldValue(fixture, 'email', email);
     setFieldValue(fixture, 'password', password);
   };
 
@@ -81,27 +81,32 @@ describe('SignUpComponent', () => {
   };
 
   it('submit the form successfuly', fakeAsync(async () => {
-    // Arrange
     await setup();
-    // Act
     fillForm();
+    fixture.detectChanges();
 
     expect(findEl(fixture, 'submit').properties['disabled']).toBe(true);
+    
     // Wait for async validators
-    // tick(1000);
+    tick(1000);
     fixture.detectChanges();
+
     expect(findEl(fixture, 'submit').properties['disabled']).toBe(false);
 
     findEl(fixture, 'form').triggerEventHandler('submit');
     // expectText(fixture, 'status', 'Sign-up successful!');
+    expect(signupService.isEmailTaken).toHaveBeenCalledWith(email);
     expect(signupService.signup).toHaveBeenCalledWith(signupData);
   }));
 
   it('does not submit an invalid form', fakeAsync(async () => {
-    await setup();
+    await setup(
+      { isEmailTaken: of(true) }
+      );
+    fillForm();
 
     // Wait for async validators
-    // tick(1000);
+    tick(1000);
 
     findEl(fixture, 'form').triggerEventHandler('submit', {});
     expect(signupService.signup).not.toHaveBeenCalled();
@@ -116,7 +121,8 @@ describe('SignUpComponent', () => {
     fillForm();
 
     // Wait for async validators
-    // tick(1000);
+    tick(1000);
+    fixture.detectChanges();
 
     findEl(fixture, 'form').triggerEventHandler('submit', {});
 

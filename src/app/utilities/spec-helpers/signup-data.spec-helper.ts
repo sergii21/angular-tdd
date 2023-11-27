@@ -15,7 +15,7 @@ export const country = 'Luggnagg';
 
 export const signupData: SignUpData = {
   // plan: 'personal',
-  username,
+  email,
   // email,
   password,
   // address: { name, addressLine1, addressLine2, city, postcode, region, country },
