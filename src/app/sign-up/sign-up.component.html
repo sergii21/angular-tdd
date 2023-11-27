@@ -1,0 +1,5 @@
+<form data-test="form" [formGroup]="form" (submit)="onSubmit()">
+    <input data-test="username" formControlName="username" aria-required="true" />
+    <input data-test="password" formControlName="password" aria-required="true" />
+    <button data-test="submit" [disabled]="form.invalid">submit</button>
+</form>

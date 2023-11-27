@@ -1,0 +1,5 @@
+<button data-test="increment-buttton" (click)="onIncrement()">increment</button>
+<button data-test="decrement-buttton" (click)="onDecrement()">decrement</button>
+<div data-test="count">{{count$|async}}</div>
+<input data-test="input" type="number" #input/>
+<button data-test="inputBtn" (click)="onSetCount(input.value)">inputBtn</button>
