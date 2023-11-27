@@ -22,4 +22,8 @@ export class DynamicQuestionComponent {
     get isValid(): boolean {
         return this.form.controls[this.question.id].valid;
     }
+
+    get isTouched(): boolean {
+        return this.form.controls[this.question.id].touched;
+    }
 }
