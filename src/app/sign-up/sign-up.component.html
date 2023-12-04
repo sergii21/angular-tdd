@@ -1,6 +1,13 @@
 <form data-test="form" [formGroup]="form" (submit)="onSubmit()">
-    <input data-test="email" formControlName="email" aria-required="true" />
-    <input data-test="password" formControlName="password" aria-required="true" />
-    <button data-test="submit" [disabled]="form.invalid">submit</button>
+  <label for="email">Email</label>
+  <input
+    id="email"
+    data-test="email"
+    formControlName="email"
+    aria-required="true"
+  />
+  <label for="password">Password</label>
+  <input id="password" data-test="password" formControlName="password" aria-required="true" />
+  <button data-test="submit" [disabled]="!form.valid">submit</button>
 </form>
- {{form.invalid}}
+{{ form.status }}

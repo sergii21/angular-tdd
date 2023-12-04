@@ -10,7 +10,7 @@ export class SignUpService {
   constructor() { }
 
   isEmailTaken(email: string): Observable<boolean> {
-    return of(true);
+    return of(false);
   }
   signup(data: SignUpData) {
     return of({ success: true })
