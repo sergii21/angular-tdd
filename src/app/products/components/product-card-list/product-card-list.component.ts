@@ -1,28 +1,28 @@
-import { MatMenuModule } from '@angular/material/menu';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { Component, Input, inject } from '@angular/core';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { map } from 'rxjs';
+import { ProductCardConfig } from '../../models/product-card-config.model';
+import { Product } from '../../models/product.model';
+import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
   selector: 'app-product-card-list',
   standalone: true,
   imports: [
     MatGridListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatMenuModule,
-    CommonModule
+
+    CommonModule,
+    ProductCardComponent
   ],
   templateUrl: './product-card-list.component.html',
   styleUrl: './product-card-list.component.scss'
 })
 export class ProductCardListComponent {
+  @Input() products: Product[] | null = [];
+  @Input() productCardConfig: ProductCardConfig | undefined;
+
   private breakpointObserver = inject(BreakpointObserver);
 
   /** Based on the screen size, switch from standard to one column per row */

@@ -1,8 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { ProductCardListComponent } from '../../products/components/product-card-list/product-card-list.component';
+import { Component } from '@angular/core';
+import { DashboardProductCardListComponent } from '../../products/components/dashboard-product-card-list/dashboard-product-card-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +9,9 @@ import { ProductCardListComponent } from '../../products/components/product-card
   standalone: true,
   imports: [
     CommonModule,
-    ProductCardListComponent
+    DashboardProductCardListComponent
   ]
 })
 export class DashboardComponent {
-
 
 }
