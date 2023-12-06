@@ -54,7 +54,7 @@ const requiredFields: (keyof Pick<SignUpData, 'email' | 'password'>)[] = [
   'password',
 ];
 
-fdescribe('SignUpComponent', () => {
+describe('SignUpComponent', () => {
   let component: SignUpComponent;
   let fixture: ComponentFixture<SignUpComponent>;
   let signupService: jasmine.SpyObj<SignUpService>;
