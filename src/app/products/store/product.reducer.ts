@@ -7,6 +7,7 @@ export const productsFeatureKey = 'products';
 
 export interface ProductState extends EntityState<Product> {
   // additional entities state properties
+  a:1
 }
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>({
@@ -15,6 +16,7 @@ export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>({
 
 export const initialState: ProductState = adapter.getInitialState({
   // additional entity state properties
+  a:1
 });
 
 export const reducer = createReducer(

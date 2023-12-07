@@ -8,9 +8,11 @@ import * as selectors from '../store/product.selectors';
 })
 export class ProductsStoreService {
   products$ = this.store.select(selectors.selectAllProducts);
+  
   constructor(
     private store: Store<AppState>
   ) { }
+
 
   getProducts() {
     return this.store.dispatch(ProductActions.loadProducts())

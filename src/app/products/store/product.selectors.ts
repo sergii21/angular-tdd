@@ -1,8 +1,8 @@
-import { createSelector } from '@ngrx/store';
-import { AppState } from '../../reducers';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromProduct from './product.reducer';
 
-export const selectState = (state: AppState) => state?.[fromProduct.productsFeatureKey];
- 
-export const selectAllProducts =
-    createSelector(selectState, fromProduct?.selectAll); 
+export const selectProductsState = createFeatureSelector<fromProduct.ProductState>(fromProduct.productsFeatureKey);
+
+export const selectAllProducts = fromProduct.selectAll;
+export const selectA =
+    createSelector(selectProductsState, s=>s.ids);

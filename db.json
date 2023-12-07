@@ -2,11 +2,14 @@
     "products": [
         {
         "id":"1",
-        "title": "test 1"
+        "title": "test 1",
+        "cols": 2,
+        "rows": 1
     },
         {
         "id":"2",
-        "title": "test 2"
+        "title": "test 2",
+        "cols": 1, "rows": 1
     }
 ]
 }

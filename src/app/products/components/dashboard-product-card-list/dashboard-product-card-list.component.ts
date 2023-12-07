@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { dashboardProductCardConfig } from '../../consts/product-card-config.const';
+import { Product } from '../../models/product.model';
 import { ProductsStoreService } from '../../services/products-store.service';
 import { ProductCardListComponent } from '../product-card-list/product-card-list.component';
 
@@ -13,13 +15,15 @@ import { ProductCardListComponent } from '../product-card-list/product-card-list
   styleUrl: './dashboard-product-card-list.component.scss'
 })
 export class DashboardProductCardListComponent implements OnInit{
-  products$ = this.productsStoreService.products$;
+  products$!:Observable<Product[]>;
   constructor(
     private productsStoreService:ProductsStoreService
   ) {} 
   
   ngOnInit(): void {
     this.productsStoreService.getProducts();
+    this.products$ = this.productsStoreService.products$;
+
   }
   dashboardProductCardConfig = dashboardProductCardConfig;
 
